@@ -1,0 +1,27 @@
+#include <stdio.h>
+
+
+int puissance(int x,int n){
+  int res=0;
+  
+  
+  
+  if(n==0){
+    res = 1;
+  }else if (n>0){
+    res = x*puissance(x,n-1);
+  }else if (n<0){
+    //attention +1 pas -1 !!!!!!!!!!!!!!!!!!!!!!!!!!
+    res = (1/x)*puissance(x,n+1);
+    //res = 1/puissance(x,-n);
+  }
+  return res;
+}
+
+
+
+void main(){
+  int res;
+  res = puissance(2,3);
+  printf("puissance de 2³=%d \n",res);
+}
