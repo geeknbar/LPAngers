@@ -33,16 +33,26 @@ int rechercher(Liste l, int val){
 
 
 void supprimer(Liste *l, int val){
-  
+  Liste sup;
+  if (*l != NULL){
+    if((*l)->Numero ==val){
+      sup=*l;
+      *l=(*l)->Suivant;
+      free(sup);
+      supprimer(&(*l),val);
+    }else{
+      supprimer(&((*l)->Suivant),val);
+    }
+  }
 }
 
 
 int main(){
 
   Liste l,l1,l2;
-  l = (Liste)malloc(sizeof(struct Element));
-  l1 = (Liste)malloc(sizeof(struct Element));
-  l2 = (Liste)malloc(sizeof(struct Element));
+  l = malloc(sizeof(struct Element));
+  l1 = malloc(sizeof(struct Element));
+  l2 = malloc(sizeof(struct Element));
   
   l->Numero = 24100;
   l->Suivant = l1;
@@ -56,6 +66,8 @@ int main(){
   
   afficheliste(l);
   rechercher(l,0321);
+  supprimer(&l,5432);
+  afficheliste(l);
   
   return 0;
 }

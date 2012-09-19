@@ -33,7 +33,17 @@ int rechercher(Liste l, int val){
 
 
 void supprimer(Liste *l, int val){
-  
+  Liste sup;
+  if (*l != NULL){
+    if((*l)->Numero ==val){
+      sup=*l;
+      *l=(*l)->Suivant;
+      free(sup);
+      supprimer(&(*l),val);
+    }else{
+      supprimer(&((*l)->Suivant),val);
+    }
+  }
 }
 
 
@@ -55,7 +65,9 @@ int main(){
   
   
   afficheliste(l);
-  int res = rechercher(l,0321);
+  rechercher(l,0321);
+  supprimer(&l,5432);
+  afficheliste(l);
   
   return 0;
 }
