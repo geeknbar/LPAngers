@@ -27,7 +27,8 @@ typedef struct maillon_ligne_compressee *ptr_ligne_compressee;
 
 typedef ptr_ligne_compressee T_image_compressee[NMAX];
 
-
+T_image im;
+T_image_compressee imC;
 
 /* Peut aussi s'écrire plus facilement mais les appels seront différents.
 struct compresse {
@@ -79,28 +80,41 @@ void afficheLigne(ptr_ligne L){
   
 void afficheLigneC(ptr_ligne_compressee L){
  while (L!=NULL){
-   printf("%d,%d",(L->pix).val,(L->pix).nb);
+   printf("(%d,%d) ",(L->pix).val,(L->pix).nb);
    L=L->suiv;
  }
  printf("\n");
 }  
 
 
-void compresse (ptr_ligne L, ptr_ligne_compressee LC){
+void compresse_ligne (ptr_ligne p,ptr_ligne_compressee *ligne){
   
-  int val=0;
+  int val,nb;
+  struct couple c;
   
-  while (L!=NULL){
+  *ligne=NULL; //le dernier maillon est toujours égale a null faire attention!!
+  
+  while (p!=NULL){
     
-    if(L->pix==val){
-      LC
-    
-    
+    val=p->pix;
+    nb=0;
+    while ((p!=NULL) && (p->pix == val)){//on fait qu moins un tour dans la boucle
+      nb=nb+1;
+      p=p->suiv;
+    }
+    c.val=val;
+    c.nb=nb;
+    ajoutC(&(*ligne),c); 
   }
-  
   
 }
 
+void compress_image (T_image im, int nbligne, T_image_compressee *imc){
+  int i;
+  for(i=0;i<nbligne;i++){
+    compresse_ligne(im[i],&(*imc)[i]);
+  }
+}
 
 void main(){
   //ATTENTION ne pasmettre 'ptr_ligne T = malloc(sizeof(struct maillon_ligne));' car on alloue un espace mémoire sans valeur!!!!
@@ -109,7 +123,23 @@ void main(){
   ajout(&T,2);
   ajout(&T,2);
   ajout(&T,1);
-  afficheLigne(T);
+  im[0]=T;
+  ptr_ligne T2 = NULL;
+  ajout(&T2,4);
+  ajout(&T2,4);
+  ajout(&T2,4);
+  ajout(&T2,6);
+  ajout(&T2,6);
+  im[1]=T2;
+  
+  afficheLigne(im[0]);
+  afficheLigne(im[1]);
+  
+  compresse_ligne(im[0],&imC[0]);
+  compresse_ligne(im[1],&imC[1]);
+  
+  afficheLigneC(imC[0]);
+  afficheLigneC(imC[1]);
   
 }
 
