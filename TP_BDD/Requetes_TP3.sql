@@ -45,3 +45,7 @@ from membre m1 join membre m2 on (m1.numero =m2.superieur)
 group by m1.nom;
 
 --1.8
+
+select m1.nom, count(m2.superieur)as PersonneDepend
+from membre m1 left join membre m2 on (m1.numero =m2.superieur)
+group by m1.nom;

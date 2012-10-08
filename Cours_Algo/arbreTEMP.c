@@ -61,9 +61,43 @@ void suffixe (arbre a){
   }
 }
 
+void inserer(arbre *a,int x){
+  if (*a == NULL){
+    *a = (arbre) malloc(sizeof(struct noeud));
+    (*a)->gauche = NULL;
+    (*a)->droit = NULL;
+    (*a)->val = x;
+    
+  }else
+    if ((*a)->val < x)
+      inserer(&(*a)->droit,x);
+    else
+      inserer(&(*a)->gauche,x);
+  
+}
+
+int rechercher(arbre a,int x){
+  if(a==NULL) //ARBRE VIDE
+    return 1;
+  else
+    if (a->val == x) // VALEUR TROUVEE
+      return 0;
+    else 
+      if (a->val > x) // VALEUR PLUS PETITE
+	 return rechercher(a->gauche,x);
+      else // VALEUR PLUS GRANDE
+	 return rechercher(a->droit,x);    
+}
+
+void TriTableau(int tab[], int n){
+  
+  
+}
+
 int main()
 {
 	arbre a,tmp1,tmp2,tmp3,tmp4,tmp5,tmp6,tmp7,tmp8,tmp9;
+	int t[]={2,8,4,0,9,1};
 	tmp1 = (arbre)malloc(sizeof(struct noeud));
 	tmp1->val = 1;
 	tmp1->gauche = NULL;
@@ -112,5 +146,7 @@ int main()
 	printf("\n");
 	suffixe(a);
 	printf("\n");
+	TriTableau(t,6);
+	
 	
  	}
