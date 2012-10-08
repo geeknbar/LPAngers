@@ -1,0 +1,38 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+char s1[30];
+
+void empiler(Liste *maliste, Liste *elt){
+  (*elt)->suivant = *maliste;
+  *maliste=*elt;
+}
+
+
+Liste depiler(Liste *maliste) {
+  Liste tmp;
+  if (*maliste == NULL)
+    return NULL;
+  else{
+    tmp = *maliste;
+    *maliste=(*maliste)->suivant;
+    tmp->suivant = NULL;
+  return tmp;
+  }
+}
+
+void main(){
+  int i=0;
+  printf("Saisir 1 caracteres\n");
+  scanf("%s",s1);
+  if (s1[i]='!'){
+    exit(1);
+  }else
+    
+    
+  }
+  
+  scanf("%s",s2); 
+  
+  
+}

@@ -111,27 +111,67 @@ where m2.nom 'Jeremi' and m2.nom='Simon';
 
 
 -- 4.7 
-
+/*
 select membre.nom,membre.prenom 
 from membre,affectation
 where affectation.employe=membre.numero
 and affectation.projet!='PRJ2';
+*/
+
+select nom, prenom
+from membre
+where numero int(
+  select employe
+  from affectaton
+  where = 'PRJ12');
+
+--ou
+  
+select nom
+from membre 
+left join affectation on (membre.numero = affectation.employe and affectation.projet = 'PRJ2') where employe is NULL;
 
 -- 4.8 
-
+/*
 select membre.nom 
 from membre 
 where membre.superieur=(select membre.numero 
 			 from membre
 			 where membre.nom='Karamazof');
+*/
+
+select m1.nom
+from membre m1, membre m2
+where (m1.superieur = m2.numero) and (m2.nom='Karamazof') and (m2.prenom = 'Serge';
+
+--ou
+
+
+select m1.nom
+from membre m1 join membre m2 on (m1.superieur=m2.numero)
+where m2.nom='Karamazof' and m2.prenom='Serge';
+
+
 
 -- 4.9 
-select membre.nom,membre.prenom,sup.nom from membre,membre as sup where membre.superieur=sup.superieur;
+select m1.nom, m1.prenom, m2.nom
+from membre m1 left join membre m2
+on m1.superieur=m2.numero
+order by m1.nom, m1.prenom;
+
+
 
 -- 4.10  
-select membre.nom from membre where membre.superieur=(select membre.numero from membre where membre.superieur=(select membre.numero from membre where membre.nom='Karamazof')); 
+select m1.nom
+from membre m1, membre m2, membre m3
+where (m1.superieur=m2.numero) and (m2.superieur=m3.numero) and (m3.nom='Karamazof') and (m3.prenom='Serge');
 
+--ou
 
+select m1.nom
+from membre memb join membre sup join membre supsup
+on (memb.superieur= sup.numero) and (sup.superieur= supsup.numero)
+where (supsup.nom='Karamazof')and(supsup.prenom='Serge');
 -- 5.1
 
 drop table projet
