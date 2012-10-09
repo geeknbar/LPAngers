@@ -1,4 +1,11 @@
-#include <stdlib.h>
+/*
+ * 
+ * COFFINET Dorian LicPro 2012/2013 Projet CM Algo
+ * 
+ * J'ai choisi ici de mettre les valeurs par défaut du tableau à 0
+ * 
+ */
+
 #include <stdio.h>
 
 #define max 5
@@ -7,6 +14,7 @@ typedef int tab[max];
 
 int sommet;
 
+//fonction qui permet d'ajouter un élément dans la pile
 void empiler( tab pile, int nombre){
 
   
@@ -18,19 +26,21 @@ void empiler( tab pile, int nombre){
   }
 }
 
+//fonction qui permet de supprimer un élément dans la file
 void depiler (tab pile){
-  pile[sommet-1]=-1;
+  pile[sommet-1]=0;
   sommet=sommet-1;
 }
 
+//fonction qui renvoie 1 lorsque la file est vide et 0 lorsqu'il y a un élément dans la file
 int estVidePile(tab pile){
-  if(pile[sommet]==0)
+  if(sommet==0)
     return 1;
   else
     return 0;
 }
 
-
+//fonction qui permet d'afficher la file
 void affichePile(tab pile){
   int i;
   for (i=0;i<max;i++)
@@ -38,12 +48,32 @@ void affichePile(tab pile){
   printf("\n");
 }
 
+//fonction qui initialise la pile avec 0 comme valeur par défaut + initialisation da la variable sommet
+void InitPile(tab pile){
+  int i;
+  for (i=0;i<max;i++){
+    pile[i]=0;
+  }
+  sommet = 0;
+}
+
 void main(){
 
-  sommet = 0;
-  tab pile= {-1,-1,-1,-1,-1};
+  int vide;
+  //création de la pile + initialisation de la pile
+  tab pile;
+  InitPile(pile);
+  
+  //ajout des valeurs dans la pile
+  
+  vide=estVidePile(pile);
+  printf("La pile est vide : %d (1 pour oui 0 pour non)\n",vide);
+  
   empiler(pile,4);
   affichePile(pile);
+  vide=estVidePile(pile);
+  printf("La pile est vide : %d (1 pour oui 0 pour non)\n",vide);
+  
   empiler(pile,3);
   empiler(pile,5);
   affichePile(pile);
