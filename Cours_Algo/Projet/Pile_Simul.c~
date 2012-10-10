@@ -29,12 +29,14 @@ void empiler( tab pile, int nombre){
 //fonction qui permet de supprimer un élément dans la file
 void depiler (tab pile){
   pile[sommet-1]=0;
-  sommet=sommet-1;
+  if(sommet>0){
+    sommet=sommet-1;
+  }
 }
 
 //fonction qui renvoie 1 lorsque la file est vide et 0 lorsqu'il y a un élément dans la file
 int estVidePile(tab pile){
-  if(pile[sommet]==0)
+  if(sommet==0)
     return 1;
   else
     return 0;
@@ -82,12 +84,20 @@ void main(){
   empiler(pile,9);
   empiler(pile,7);
   empiler(pile,2);
+  empiler(pile,1); 
+  affichePile(pile);
+  depiler(pile);
+  depiler(pile);
+  depiler(pile);
+  depiler(pile);
+  depiler(pile);
+   depiler(pile);
+  depiler(pile);
+  depiler(pile);
+  affichePile(pile);
   empiler(pile,5);
   affichePile(pile);
-  depiler(pile);
-  depiler(pile);
-  empiler(pile,2);
-  affichePile(pile);
+
 }
     
 

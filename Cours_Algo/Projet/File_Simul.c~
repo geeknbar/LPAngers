@@ -35,14 +35,21 @@ void ajoutFile( tab file, int nombre){
 
 //fonction qui permet de supprimer un élément dans la file
 void supFile (tab file){
+  
+  
   if(teteFile==max){
+    
+    file[teteFile]=0;
+    file[0]=0;
     teteFile=1;
-  }else{
+  }else if (nbElement>0){
     file[teteFile]=0;
     teteFile=teteFile+1;
     
   }
-  nbElement=nbElement-1;
+  if(nbElement>0){
+    nbElement=nbElement-1;
+  }
 }
 
 //fonction qui renvoie 1 lorsque la file est vide et 0 lorsqu'il y a un élément dans la file
@@ -72,59 +79,60 @@ void InitFile(tab file){
   teteFile =0;
 }
 
+//main de test
 void main(){
 
   int vide;
   //création de la file + initialisation de la pile avec 0 comme valeur par défaut
   tab file;
-  InitFile(file);
+
   
   //ajout des valeurs dans la pile
   
   afficheFile(file);
   vide=estVideFile(file);
-  printf("La file est vide : %d (1 pour oui 0 pour non\n)",vide);
-  
+  printf("La file est vide : %d (1 pour oui 0 pour non)\n",vide);
   
   ajoutFile(file,1);
   ajoutFile(file,2);
   ajoutFile(file,3);
   ajoutFile(file,4);
   ajoutFile(file,5);
-  
+  printf("%d\n",teteFile);
+  printf("%d\n",nbElement);
   afficheFile(file);
-  vide =estVideFile(file);
-  printf("La file est vide : %d (1 pour oui 0 pour non\n)",vide);
-  
-  
   supFile(file);
   supFile(file);
   supFile(file);
+  printf("%d\n",teteFile);
+  printf("%d\n",nbElement);
   afficheFile(file);
   ajoutFile(file,6);
-  afficheFile(file);
   ajoutFile(file,7);
   ajoutFile(file,8);
-  ajoutFile(file,9);
+  printf("%d\n",teteFile);
+  printf("%d\n",nbElement);
   afficheFile(file);
-    /*
   supFile(file);
   supFile(file);
   supFile(file);
+  printf("%d\n",teteFile);
+  printf("%d\n",nbElement);
   afficheFile(file);
-
-
   supFile(file);
+  supFile(file);
+   supFile(file);
+  supFile(file);
+  printf("%d\n",teteFile);
+  printf("%d\n",nbElement);
   afficheFile(file);
-  
-  
+  ajoutFile(file,1);
+  ajoutFile(file,2);
+  ajoutFile(file,3);
+  printf("%d\n",teteFile);
+  printf("%d\n",nbElement);
   afficheFile(file);
-  ajoutFile(file,7);
-  ajoutFile(file,8);
-  ajoutFile(file,9);
-  afficheFile(file);
-  */
-  
+   
   
   
 }
