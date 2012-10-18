@@ -122,4 +122,23 @@ and a2.nommagazine = a1.nommagazine
 
 --5.8
 
---version simple, mauvais niveau algorithme.
+--version simple, mauvais niveau algorithme. Et ne répond pas forcement 
+select nom,prenom, count(*) as c
+from client join commande on numero=numeroclient
+group by numero
+order by c desc
+limit 1;
+
+--ou
+
+select nom,prenom from
+  (select numeroclient, count(*) as c 
+    from  commande
+    group by numeroclient
+    having count(*)=(
+      select max(s) 
+	from (select count(*)s
+		from commande 
+		group by numeroclient)temp) -- il faut donner un nom aux sous -requette qui créer une table.
+  )t join client on numeroclient=numero;
+
