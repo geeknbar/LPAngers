@@ -1,0 +1,25 @@
+
+public class Camion extends Vehicule{
+	
+	protected double volume;
+	
+	
+	public Camion (String modele,int dateAchat,int prixAchat,String numImmatriculation,String numPermit, double vol){
+		super(modele,dateAchat,prixAchat,numImmatriculation,numPermit);
+		volume=vol;
+	}
+	
+	public boolean peutTransporterVolume(double volumeDemander){
+		
+		return (volumeDemander<volume);
+		
+	}
+	public void infoCamion(){
+		System.out.println("camion :");
+		this.afficher();
+		System.out.println("volume : "+volume+ "\n");
+	}
+
+}
+
+

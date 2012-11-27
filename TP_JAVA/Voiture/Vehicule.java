@@ -1,0 +1,42 @@
+public class Vehicule {
+
+	
+	protected String modele;
+	protected int dateAchat;
+	protected int prixAchat;
+	protected String numImmatriculation;
+	protected String numPermit;
+	
+	
+	public Vehicule(String m,int dateA,int prixA,String numImmat,String numP){
+
+		modele=m;
+		dateAchat=dateA;
+		prixAchat=prixA;
+		numImmatriculation=numImmat;
+		numPermit=numP;
+	}
+	
+	
+	public int age(){
+		return (2012-dateAchat); //CurrentYear 
+	}
+	
+	
+	public int coutLocation(){
+		
+		int cout=0;
+		if (this.age()<1){
+			cout= prixAchat/200;
+		}else{
+			cout= prixAchat/250;
+		}
+			
+		return cout;
+		
+	}
+	
+	public String afficher(){
+		return("Modèle: "+this.modele+", Numéro immatriculation: "+this.numImmatriculation);
+	}
+}

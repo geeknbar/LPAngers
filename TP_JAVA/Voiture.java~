@@ -1,0 +1,26 @@
+
+public class Voiture extends Vehicule{
+
+	
+	private boolean autoradio;
+	
+	
+	public Voiture(String modele,int dateAchat,int prixAchat,String numImmatriculation,String numPermit,boolean auto){
+		super(modele,dateAchat,prixAchat,numImmatriculation,numPermit);
+		autoradio=auto;
+	}
+	
+	public void ajouterAutoradio(){
+		autoradio=true;
+	}
+	
+	public void enleverAutoradio(){
+		autoradio=false;
+	}
+	
+	public void infoVoiture(){
+		System.out.println("voiture :");
+		this.afficher();
+		System.out.println("autoradio : "+autoradio);
+	}
+}

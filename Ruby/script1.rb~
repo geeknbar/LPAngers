@@ -1,0 +1,8 @@
+#!/usr/bin/ruby -w
+
+puts "quel est ton nom:"
+nom = gets.strip
+puts " Quelle est ton année de naissance"
+date = gets.strip.to_i
+age = Time.now.year - date
+puts " Salut #{nom}, cest l'année de tes #{age} ans?"

@@ -1,0 +1,43 @@
+public class Bureau extends Agence {
+
+	private Garage[] garage= new Garage[10];
+	private int commerciaux;
+	
+	public Bureau(String nom,String telephone,int administratif,String commentaire,int commerc){
+		super(nom,telephone,administratif,commentaire);
+		commerciaux=commerc;
+	}
+	
+	public int taillePersonnel(){
+		return (super.taillePersonnel()+commerciaux);
+	}
+	
+	public void ajout(Garage g){
+	  boolean trouve= true;
+	  int i=0;
+	  while (i<garage.length && trouve){
+		if(garage[i]==null){
+		    garage[i]=g;
+		    trouve=false;
+		}
+		i++;
+	  }
+	  
+	}
+	
+	public void retrait(Garage g){
+	  boolean trouve= true;
+	  int i=0;
+	  while (i<garage.length && trouve){
+		if(garage[i]==g){
+		    garage[i]=null;
+		    trouve=false;
+		}
+		i++;
+	  }
+	 
+	}
+	public String afficherBureau(){
+		return("Bureau de location :"+this.afficher()+commerciaux+" comm"+ "\n");
+	}
+}

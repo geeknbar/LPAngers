@@ -1,0 +1,46 @@
+#include <stdio.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <dirent.h>
+#include <string.h>
+
+
+
+void scan( char *path){
+
+/*pour chaque entree
+ * si lentree est un repertoire, fabriquer un nouveau path par + / + repertoire, reappler la fonction
+ * sinon lister
+ */
+  struct dirent *lecture;
+  struct stat statT;
+  DIR *rep;
+  rep = opendir(path);
+  char newpath[FILENAME_MAX];
+  char statD[FILENAME_MAX];
+  
+   while ((lecture = readdir(rep))){
+    if (lstat( statD, &statT) < 0){
+      sprintf(newpath,"%s/%s",path,lecture->d_name);
+      printf("%s\n",newpath);
+      scan(newpath);
+      
+    }else{
+      while ((lecture = readdir(rep)){
+	printf("%s\n", lecture->d_name);
+      }
+   }
+   }
+  
+  closedir(rep);
+
+}
+
+
+int main(){
+
+  scan(".");
+  
+  
+}
+

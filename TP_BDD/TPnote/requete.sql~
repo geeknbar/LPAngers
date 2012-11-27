@@ -1,0 +1,170 @@
+--1--
+
+select nomLog from Logiciel where typeLog = 'UNIX';
+
+--2--
+
+select nSalle,nomPoste,concat(indIP,".",ad) as IP
+from Poste
+where indIP = '130.120.80'
+order by nSalle desc;
+
+--3--
+
+select nPoste from Installer where nLog='Log1';
+
+--4--
+
+select nPoste, count(nLog)
+from Installer
+group by nPoste;
+
+--5--
+
+select nLog, count(DISTINCT nPoste)
+from Installer
+group by nLog;
+
+--6--
+
+select MAX(dateAch)
+from Logiciel;
+
+select dateAch
+from Logiciel
+where dateAch >= all(select dateAch from Logiciel);
+
+--7--
+
+select nPoste
+from Installer
+group by nPoste
+having count(*)=2;
+
+--8--
+
+select nomType from Types where typeLP NOT IN (select DISTINCT typePoste from Poste);
+--pas obilgé pour le distinct c'est juste une optimisation
+
+
+--9--
+
+select DISTINCT nomType from Types join Poste on Types.typeLP = Poste.typePoste 
+where Poste.typePoste NOT IN(select typeLog FROM Logiciel);
+
+--10--
+
+select nSalle,nomPoste,concat(indIP,".",ad) as IP
+from Poste, Installer, Logiciel 
+where Poste.nPoste=Installer.nPoste
+and Logiciel.nLog=Installer.nLog
+and nomLog='Oracle 8';
+
+select concat(Poste.indIP,".",ad) as IP
+from Poste Natural join Installer Natural join Logiciel
+where nomLog='Oracle 8';
+--11--
+
+
+select nomSalle as IP
+from Poste Natural join Installer Natural join Logiciel Natural join Salle
+where nomLog='Oracle 8';
+
+
+select nomSalle
+from Poste, Installer, Logiciel,Salle 
+where Poste.nPoste=Installer.nPoste
+and Logiciel.nLog=Installer.nLog
+and Poste.nSalle=Salle.nSalle
+and nomLog='Oracle 8';
+
+--12--
+
+select p.nomPoste
+from Poste p where not exists (
+select null from Installer where nPoste='p6' and nLog not in (
+select nLog from Installer where nPoste = p.nPoste))
+and p.nPoste <> 'p6';
+
+--13--
+select p.nomPoste
+from Poste p where not exists (
+select null from Installer where nPoste='p7' and nLog not in (
+select nLog from Installer where nPoste = p.nPoste))
+and not exists (select null from Installer where nPoste=p.nPoste and nLog not in (select nLog from Installer where nPoste = 'p7'))
+and p.nPoste <> 'p7';
+
+
+--3.1---
+create view 
+SallePrix (nSalle, nomSalle, nbPoste, prixLocation)
+as
+select nSalle, nomSalle, nbPoste, nbPoste*100
+from Salle
+group by nSalle;
+
+create view SallePoste(nomSalle, nomPoste, adrIP, nomTypePoste 
+as
+select Salle.nomSalle, Poste.nomPoste, concat(Poste.indIP,'.',Poste.ad),Types.nomType
+from Poste natural join Salle join Types on Poste.typePoste=Types.typeLP 
+order by Salle.nSalle ASC, Poste.nPoste ASC;
+
+
+--exo prof--
+
+--Ecrire la procedure calculTemps qui permet de connaitre, pour chaque logiciel installé,
+--le temps(nombre de jours entier décimal) passé entre l'achat et l'installation. Ce calcul devra
+--renseigner la colonne delai de la table Installer pour l'instant null. Ce calcul devra 
+--etre fait en procédure stocké ou fonction
+
+
+
+
+
+
+
+
+
+
+
+delimiter |
+CREATE PROCEDURE calculTemps()
+BEGIN
+  DECLARE done INT DEFAULT 0;
+  DECLARE a VARCHAR(5);
+  DECLARE b,c INT;
+  DECLARE cur1 CURSOR FOR SELECT dateAch FROM Logiciel;
+  DECLARE cur2 CURSOR FOR SELECT dateIns FROM Installer;
+  DECLARE CONTINUE HANDLER FOR SQLSTATE '02000' SET done = 1;
+
+  OPEN cur1;
+  OPEN cur2;
+
+  REPEAT
+    FETCH cur1 INTO a, b;
+    FETCH cur2 INTO c;
+    IF NOT done THEN
+          INSERT INTO Logiciel.calcul VALUES (a,(b-c));
+    END IF;
+  UNTIL done END REPEAT;
+
+  CLOSE cur1;
+  CLOSE cur2;
+END |
+delimiter ;
+call calculTemps;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
