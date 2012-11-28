@@ -1,12 +1,29 @@
+/**
+* La classe Agence permet de représenter des Agences
+* @author dorian
+* @version beta
+*/
+
 public class Agence {
 
-	
+	/**
+	* nom le nom de l'agence
+	* telephone le telephone
+	* administratif le nombre d'administratif
+	* commentaire commentaire
+	*/
 	private String nom;
 	private String telephone;
 	private int administratif;
 	protected String commentaire;
 	
-	
+	/**
+	* constructeur de la classe
+	* @param n le nom de l'agence
+	* @param tel le telephone
+	* @param ad le nombre d'administratif
+	* @param com le commentaire
+	*/
 	public Agence(String n,String tel,int ad,String com){
 
 		nom=n;
@@ -15,11 +32,21 @@ public class Agence {
 		commentaire=com;
 	}
 	
+	
+	
+	/**
+	* méthode qui renvoie le nombre d'administratif
+	* @return la taille du personnel
+	*/
 	public int taillePersonnel(){
 		return administratif;
 	}
 	
 	
+	/**
+	* méthode qui renvoie une chaine de caractère d'information
+	* @return l'information de l'agence
+	*/
 	public String afficher(){
 		return(" - "+this.nom+", - "+telephone+", - "+administratif+" adm - ");
 	}
